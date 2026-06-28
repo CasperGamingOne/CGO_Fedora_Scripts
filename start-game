@@ -22,7 +22,7 @@ export PROTON_USE_WOW64=1
 export STRANGLE_FPS=30
 export STRANGLE_FPS_BATTERY=25
 export STRANGLE_VSYNC=0
-export STRANGE_TRILINEAR=1   # Note: the variable name in the request is STRANGLE_TRILINEAR
+export STRANGLE_TRILINEAR=1
 
 # ----- Mesa / Vulkan -----------------------------------------
 export mesa_glthread=true
