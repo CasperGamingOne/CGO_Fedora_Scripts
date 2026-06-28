@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <command>"
+    exit 1
+fi
+
+# 1. Fetch the exact active profile name safely
+INITIAL_PROFILE=$(sudo tuned-adm active | awk -F': ' '{print $2}')
+
+if [ -z "$INITIAL_PROFILE" ]; then
+    INITIAL_PROFILE="balanced" # Safe default fallback
+fi
+
+# 2. Force change directly via tuned-adm
+echo "Switching system to high performance..."
+sudo tuned-adm profile latency-performance
+
+# 3. Setup the exit handler
+restore_profile() {
+    echo "Restoring system to profile: $INITIAL_PROFILE"
+    sudo tuned-adm profile "$INITIAL_PROFILE"
+}
+trap restore_profile EXIT
+
+# 4. Run the game/command
+"$@"

@@ -1,0 +1,54 @@
+#!/bin/bash
+# --------------------------------------------------------------
+# Global environment variables applied to every game launch
+# --------------------------------------------------------------
+
+# General
+export SteamDeck=0
+
+# ----- NVIDIA -------------------------------------------------
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __VK_LAYER_NV_optimus=NVIDIA_only
+export VK_LOADER_DRIVERS_SELECT=*nvidia*
+
+# ----- Proton -------------------------------------------------
+export PROTON_NO_ESYNC=1
+export PROTON_NO_FSYNC=1
+export PROTON_USE_WAYLAND=1
+export PROTON_USE_WOW64=1
+
+# ----- Strangle (FPS limiter) -------------------------------
+export STRANGLE_FPS=30
+export STRANGLE_FPS_BATTERY=25
+export STRANGLE_VSYNC=0
+export STRANGE_TRILINEAR=1   # Note: the variable name in the request is STRANGLE_TRILINEAR
+
+# ----- Mesa / Vulkan -----------------------------------------
+export mesa_glthread=true
+export MESA_LOADER_DRIVER_OVERRIDE=zink
+export RADV_DEBUG=nofastclears
+
+# ----- Wine / Proton tweaks ----------------------------------
+export WINE_DISABLE_VULKAN_OPWR=1
+export WINE_FULLSCREEN_INTEGER_SCALING=1
+export WINEPULSE_FAST_POLLING=1
+
+export PROTON_PRIORITY_HIGH=1
+export PROTON_DISCORD_BRIDGE=1
+export PROTON_DXVK_LOWLATENCY=1
+export PROTON_FORCE_LARGE_ADDRESS_AWARE=1
+export LOW_LATENCY_LAYER=1
+export LOW_LATENCY_LAYER_REFLEX=1
+export PROTON_NVIDIA_LIBS=1
+export PROTON_ENABLE_NVAPI=1
+
+export PROTON_FSR3_UPGRADE=1
+export PROTON_XESS_UPGRADE=1
+export PROTON_SET_GAME_DRIVE=1
+
+# ----------------------------------------------------------------
+# Execute the real game binary (first argument) with all arguments
+# passed through unchanged.
+# ----------------------------------------------------------------
+exec "$@"
